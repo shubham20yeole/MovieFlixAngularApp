@@ -12,11 +12,7 @@
       self.getMovies = getMovies;
       
       function getMovies(){
-    	  var $ans = $http.get('http://localhost:8002/movieflix/api/dashboard');
-    	  $ans.then(function(){
-    		  
-          });
-          return $ans;
+        return null;
       }
     }
     
