@@ -1,0 +1,11 @@
+<div ng-controller="LoginController as loginVm">
+	<h1>{{loginVm.message}}</h1>
+
+	<form ng-submit="loginVm.addUser()">
+	    <input type="text" placeholder="Full Name" ng-model="loginVm.newUser.fullName"> 
+	    <input type="text" placeholder="Email" ng-model="loginVm.newUser.email"> 
+	    <input type="text" placeholder="Password" ng-model="loginVm.newUser.password">
+	    <input type="hidden" placeholder="Type" ng-model="loginVm.newUser.type">
+    	<button type="submit">Submit</button>
+	</form>
+</div>
