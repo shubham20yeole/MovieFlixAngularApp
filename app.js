@@ -6,31 +6,14 @@ var mongojs = require('mongojs');
 var mongodb = require('mongodb');
 var scraperjs = require('scraperjs');
 // mongodb://<dbuser>:<dbpassword>@ds153609.mlab.com:53609/sonali
-var collections = ["users", "urldata", "bookmark", "bookmarkportfolio"]
-var db = mongojs('mongodb://shubhammovieflix:shubhammovieflix@ds151941.mlab.com:51941/shubhammovieflix ', collections)
+var collections = ["users", "movies"]
+var db = mongojs('mongodb://shubhammovieflix:shubhammovieflix@ds151941.mlab.com:51941/shubhammovieflix', collections)
 var app = express();
 var ObjectId = mongojs.ObjectId;
 var session = require('client-sessions');
 var Client = require('ftp');
 
-var JSFtp = require("jsftp");
-var fs = require('fs');
-var config = {
-  host: 'ftp.byethost7.com',
-  port: 21,
-  user: 'b7_19750162',
-  password: 'prosemedia12'
-}
-var nodemailer = require("nodemailer");
-var smtpTransport = require("nodemailer-smtp-transport");
-// smtp.sendgrid.net
-// smtp.gmail.com
-var smtpTransport = nodemailer.createTransport(smtpTransport({
-    host : "smtp.gmail.com",
-    secureConnection : false,
-    port: 587,
-    auth : {user : "prosemedia.se@gmail.com", pass : "prosemedia12"}
-}));
+
 function sendEmail(email, subject, title, message){
   var emailBody = '<html><body style="padding:40px;"><header style="background-color: #2196F3; padding: 10px !important; margin:0px !important;"><h1 style="color: #E3F2FD; text-align:center">Prosemedia Search Result</h1></header><div><div style="padding: 3%;"><br><h1>[TITLE]</h1><br>[MESSAGE]<br><br><br>Best, Prosemedia team,<br><br><br><br></div><footer style="background-color: #2196F3; padding: 3px !important; margin:0px !important;color: #E3F2FD; text-align: center; padding: 2%;">&#169; 2017 prosemedia(dot)com. All Rights Reserved.</footer></body></html>';
   emailBody = emailBody.replace("[TITLE]", title);
@@ -75,6 +58,7 @@ app.use(function(req, res, next){
   res.locals.currentuser = req.user;
   next();
 })
+
 function requireLogin (req, res, next) {
   if (!req.session.users) {
       res.render("login.ejs",{message: 'Sorry... Login required.'});
@@ -92,6 +76,7 @@ app.use(session({
   secure: true,
   ephemeral: true
 }));
+
 app.get('/logout/', function(req, res) {
   req.session.reset();
   res.redirect('/');
@@ -100,12 +85,55 @@ app.get('/logout/', function(req, res) {
 
 
 app.get('/', function(req, res){
+  if(req.session.users) console.log(req.session.users.email);
+  else console.log("LOGIN NOT PRESENT");
   res.render("index.ejs");
 });
 
-app.post('/newUser', function(req, res){
-  console.log(req.body)
-  res.send("ALL OK DUDE");
+app.post('/newuser', function(req, res){
+    console.log()
+    var newUser = req.body;
+    var datetime = new Date();
+    var email = req.body.email;
+    db.users.findOne({ email: req.body.email }, function(err, users) {
+      if (!users) {
+        db.users.insert(newUser, function(err, result){
+          if(err){console.log(err);}
+          req.session.users = newUser;
+          res.send("User Created");
+        });
+      } else {
+          res.send("DUPLICATE USER");
+      }
+    });
+  });
+
+
+app.post('/login', function(req, res) {
+  console.log(req.body.email);
+  db.users.findOne({ email: req.body.email }, function(err, users) {
+    if (!users) {
+      res.send("ENR"); 
+    } else {
+      if (req.body.password === users.password) {
+        req.session.users = users;
+        res.send(users);
+      } else {
+       res.send("PW");
+      }
+    }
+  });
+});
+
+app.get('/checkLogin', function(req, res) {
+  if(req.session.users) return res.send(req.session.users);
+  else{ return res.send("nologin"); }
+});
+
+app.get('/getMovies', function(req, res) {
+  db.movies.find({}).skip(0).limit(100).toArray(function (err, movies) {
+    res.send(movies);
+  })
 });
 
 app.listen(port, function() {

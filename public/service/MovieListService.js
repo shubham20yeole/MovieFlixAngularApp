@@ -3,16 +3,16 @@
   
    angular
     .module('mainApp')
-    .service('MovieService', MovieService);
+    .service('MovieListService', MovieListService);
     
-    MovieService.$inject = ['$http', '$q'];
+    MovieListService.$inject = ['$http', '$q'];
     
-    function MovieService($http, $q){
+    function MovieListService($http, $q){
       var self = this;
       self.getMovies = getMovies;
       
       function getMovies(){
-    	  var $ans = $http.get('http://localhost:8002/movieflix/api/dashboard');
+    	  var $ans = $http.get('/getMovies');
     	  $ans.then(function(){
     		  
           });

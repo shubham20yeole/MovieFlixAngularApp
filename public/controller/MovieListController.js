@@ -5,9 +5,9 @@
 	.module('mainApp')
 	.controller('MovieListController', MovieListController);
 
-	MovieListController.$inject = ['MovieService'];
+	MovieListController.$inject = ['MovieListService'];
 
-	function MovieListController(MovieService){
+	function MovieListController(MovieListService){
 		console.log('Inside MovieListController');
 		var movieListVm = this;
 		movieListVm.message = "MOVIE LIST PAGE FROM BACKEND";
@@ -18,7 +18,7 @@
 		init();
 		function init(){
 			movieListVm.header = 'NetFlix';
-			MovieService.getMovies()
+			MovieListService.getMovies()
 			.then(function(movies){
 				var st = JSON.stringify(movies);
 				console.log("checkSessionServer is "+movies.data);

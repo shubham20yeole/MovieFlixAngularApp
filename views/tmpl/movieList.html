@@ -1,3 +1,29 @@
-<div ng-controller="MovieListController as movieListVm">
-	<h1>{{movieListVm.message}}</h1>
+<div ng-controller="MovieListController as movsieListVm">
+	<h1>{{movsieListVm.message}} {{movsieListVm.movies.length}}</h1>
+<!-- 
+    <div ng-repeat="mov in movsieListVm.movies">
+        <div ng-mouseenter="options=true" ng-mouseleave="options=false" class="icon">
+            <i ng-hide="options || checkbox">1</i>
+            <span ng-show="options || checkbox">2</span>
+        </div>
+
+    </div> -->
+    <input type='checkbox' ng-model="checkbox" ng-click="options=!options">Show
+
+    <div class="container">    
+      <div class="row">
+        <div ng-repeat="mov in movsieListVm.movies" class="col-sm-4">
+          <div class="panel panel-primary">
+            <div class="panel-heading">{{mov.title}}</div>
+            <div class="panel-body" ng-mouseenter="options=true" ng-mouseleave="options=false">
+              <img ng-hide="options || checkbox" src="{{mov.poster}}" class="img-responsive" style="max-height: 500px; min-height: 500px" alt="Image">
+              <span ng-show="options || checkbox">2</span>
+
+            </div>
+            <div class="panel-footer">Buy 50 mobiles and get a gift card</div>
+          </div>
+        </div>
+    </div>
+  </div>
 </div>
+<br>

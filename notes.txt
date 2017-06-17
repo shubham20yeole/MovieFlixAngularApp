@@ -1,0 +1,1 @@
+mongoimport -h ds151941.mlab.com:51941 -d shubhammovieflix -c movies -u shubhammovieflix -p shubhammovieflix --file C:/Users/20188/Desktop/movielist.json --jsonArray

@@ -1,3 +1,4 @@
+<div ng-if="!sessionVm.status">
 <div ng-controller="LoginController as loginVm">
 	<h1>{{loginVm.message}}</h1>
 
@@ -8,4 +9,16 @@
 	    <input type="hidden" placeholder="Type" ng-model="loginVm.newUser.type">
     	<button type="submit">Submit</button>
 	</form>
+
+	<form ng-submit="loginVm.login()">
+	    <input type="text" placeholder="EMAIL" ng-model="loginVm.user.email"> 
+	    <input type="text" placeholder="PASSWORD" ng-model="loginVm.user.password"> 
+    	<button type="submit">Submit</button>
+	</form>
 </div>
+</div>
+<div ng-if="sessionVm.status">
+	Logout first
+</div>
+
+
