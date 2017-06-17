@@ -16,7 +16,7 @@
           <div class="panel panel-primary">
             <div class="panel-heading">{{mov.title}}</div>
             <div class="panel-body" ng-mouseenter="options=true" ng-mouseleave="options=false">
-              <img ng-hide="options || checkbox" src="{{mov.poster}}" class="img-responsive" style="max-height: 500px; min-height: 500px" alt="Image">
+              <img ng-hide="options || checkbox" src="{{mov.poster}}" class="img-responsive ngShow" style="max-height: 500px; min-height: 500px" alt="Image">
               <span ng-show="options || checkbox">2</span>
 
             </div>
