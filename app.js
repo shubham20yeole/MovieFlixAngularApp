@@ -7,7 +7,7 @@ var mongodb = require('mongodb');
 var scraperjs = require('scraperjs');
 // mongodb://<dbuser>:<dbpassword>@ds153609.mlab.com:53609/sonali
 var collections = ["users", "urldata", "bookmark", "bookmarkportfolio"]
-var db = mongojs('mongodb://prosemedia:prosemedia@ds27145.mlab.com:27145/prosemedia', collections)
+var db = mongojs('mongodb://shubhammovieflix:shubhammovieflix@ds151941.mlab.com:51941/shubhammovieflix ', collections)
 var app = express();
 var ObjectId = mongojs.ObjectId;
 var session = require('client-sessions');
@@ -107,8 +107,6 @@ app.post('/newUser', function(req, res){
   console.log(req.body)
   res.send("ALL OK DUDE");
 });
-
-
 
 app.listen(port, function() {
   console.log('Listening on port ' + port)
