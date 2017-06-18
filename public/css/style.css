@@ -81,3 +81,6 @@ h1 { font-size: 1.5em; margin: 10px; }
 .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
 .rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+
+.disableClick{ pointer-events:none; opacity: 0.3 }
+.bold{font-size: 2em; font-weight: bold; padding-left: 10px; bottom: 20px;}

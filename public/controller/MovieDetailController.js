@@ -13,6 +13,7 @@
 		movieDetailVm.message = "MOVIEDETAIL PAGE FROM BACKEND";
 
 		movieDetailVm.addMovie = addMovie;
+		movieDetailVm.voteUp = voteUp;
     	init($routeParams.id);
 
 		function init(id){
@@ -32,12 +33,29 @@
 			})
 		}
 
+		function voteUp(ids){
+			var id = ids.split("-");
+			var movId = id[0];
+			var userId = id[1];
+			console.log("MovieDetailController.voteUp: "+id[0]+", "+id[1]);
+			MovieDetailService.voteUp(movId, userId)
+			.then(function(voted){
+				movieDetailVm.movie.imdbVotes = voted.data.imdbVotes;
+				var st = JSON.stringify(voted);
+				console.log("MovieDetailController.voteUp: "+voted.data.imdbVotes);
+			})
+		}
+
 		function addMovie(){
-			console.log("In add movie method: "+movieDetailVm.newMovie);
+			console.log("MovieDetailController.addMovie: "+movieDetailVm.newMovie);
 			// movieDetailVm.movies.push(movieDetailVm.newMovie);
 			movieDetailVm.movies.unshift(movieDetailVm.newMovie);
 			movieDetailVm.newMovie=null;
 		}
+
+		
 	}
 })();
-
+function myFunction(x) {
+	x.classList.toggle("fa-thumbs-down");
+}

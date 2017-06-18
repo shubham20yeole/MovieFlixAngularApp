@@ -6,7 +6,7 @@ var mongojs = require('mongojs');
 var mongodb = require('mongodb');
 var scraperjs = require('scraperjs');
 // mongodb://<dbuser>:<dbpassword>@ds153609.mlab.com:53609/sonali
-var collections = ["users", "movies"]
+var collections = ["users", "movies", "votes"]
 var db = mongojs('mongodb://shubhammovieflix:shubhammovieflix@ds151941.mlab.com:51941/shubhammovieflix', collections)
 var app = express();
 var ObjectId = require('mongodb').ObjectID;
@@ -148,6 +148,41 @@ app.get('/getMovie/:id', function(req, res) {
     console.log("MOVIE OBJECT: "+movie);
     res.send(movie);
   });
+});
+
+app.get('/voteUp/:id', function(req, res) {
+    var id = req.params.id.split("-");
+    var movId = ObjectId(id[0]);
+    var userId = ObjectId(id[1]);
+    var newVote = {movId: movId, userId: userId }
+    db.votes.findOne({movId: movId, userId: userId}, function(err, vote) {
+      db.movies.findOne({_id: movId}, function(err, movie) {
+        // vote++ in movie
+        // insert entry in votes
+        if (!vote) {
+          db.movies.update({_id: movId},{$set : {"imdbVotes": movie.imdbVotes+1}},{upsert:true,multi:false});
+            db.votes.insert(newVote, function(err, voteinsert){
+              db.movies.findOne({_id: movId}, function(err, updatedMovie) {
+                res.send(updatedMovie);
+              });
+            });
+        }else{
+          // vote-- in movie
+          // delete entry in vote
+          db.movies.update({_id: movId},{$set : {"imdbVotes": movie.imdbVotes-1}},{upsert:true,multi:false});
+            db.votes.remove({movId: movId, userId: userId}, function(err, voteinsert){
+              db.movies.findOne({_id: movId}, function(err, updatedMovie) {
+                res.send(updatedMovie);
+              });
+            });
+        }
+      });  
+    });  
+    console.log("/voteUp/:id = "+movId+", "+userId)
+  //  db.movies.findOne({_id: id}, function(err, movie){
+  //   console.log("MOVIE OBJECT: "+movie);
+  //   res.send(movie);
+  // });
 });
 
 app.listen(port, function() {
