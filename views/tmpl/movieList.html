@@ -1,47 +1,74 @@
-<div ng-controller="MovieListController as movsieListVm">
-	<h1>{{movsieListVm.message}} {{movsieListVm.movies.length}}</h1>
+<div ng-controller="MovieListController as movieListVm">
 <!-- 
-    <div ng-repeat="mov in movsieListVm.movies">
+    <div ng-repeat="mov in movieListVm.movies">
         <div ng-mouseenter="options=true" ng-mouseleave="options=false" class="icon">
             <i ng-hide="options || checkbox">1</i>
             <span ng-show="options || checkbox">2</span>
         </div>
 
     </div> -->
-    <input type='checkbox' ng-model="checkbox" ng-click="options=!options">Show
+    
 
-    <div class="container">    
+    <div class="container">
+
+<!--     <h1>{{movieListVm.message}} {{movieListVm.movies.length}}</h1>
+ -->    
+<!--     <input type='checkbox' ng-model="checkbox" ng-click="options=!options">Show
+ -->    <div class="center">
+ <a ng-click="movieListVm.getTopRatedMovies()">Top Rated Movies</a>
+ <a ng-click="movieListVm.getTopRatedSeries()">Top Rated Series</a>
+    <ul class="pagination pagination-sm">
+      <li><a class="hvr-grow" ng-click="movieListVm.getPaginatedMovies(movieListVm.first)">FIRST</a></li>
+      <li><a class="hvr-grow" ng-click="movieListVm.getPaginatedMovies(movieListVm.prev)">PREV</a></li>
+      <li ng-repeat="pager in movieListVm.pager" ng-class="{'active': pager.no==movieListVm.curr}"><a class="hvr-grow" ng-click="movieListVm.getPaginatedMovies(pager.no)">{{pager.no+1}}</a></li>
+      <li><a class="hvr-grow" ng-click="movieListVm.getPaginatedMovies(movieListVm.next)">NEXT</a></li>
+      <li><a class="hvr-grow" ng-click="movieListVm.getPaginatedMovies(movieListVm.last)">LAST</a></li>
+    </ul>
+    </div>
+    <div></div>
       <div class="row" style="background-image: 'images/logo2.jpg !important'">
-        <div ng-repeat="mov in movsieListVm.movies" ng-click="movsieListVm.detailView(mov._id)" class="col-sm-4 movieDiv">
+        <div ng-repeat="mov in movieListVm.movies" class="col-sm-4 movieDiv">
           <div class="panel panel-primary">
             <div class="panel-heading">{{mov.title}}</div>
             <div class="posterBG">
-            <div class="panel-body" ng-mouseenter="options=true" ng-mouseleave="options=false" style="background-image: url(images/logo2.jpg); background-size: 350px 600px; background-repeat: no-repeat;max-height: 500px; min-height: 500px">
+            <div ng-click="movieListVm.detailView(mov._id)" class="panel-body" ng-mouseenter="options=true" ng-mouseleave="options=false" style="background-image: url(images/logo2.jpg); background-size: 350px 600px; background-repeat: no-repeat;max-height: 500px; min-height: 500px">
 
 
 
-              <img ng-hide="options || checkbox" src="{{mov.poster}}" ng-class="myclass" ng-mouseleave="myclass = 'animated fadeInUp'" class="img-responsive poster"  alt="Image">
-              <div ng-show="options || checkbox" class="posterBGdiv hvr-grow">
+              <img ng-hide="options || checkbox" src="{{mov.poster}}" ng-class="myclass" ng-mouseleave="myclass = 'animated zoomInDown'" class="img-responsive poster"  alt="Image">
+              <div ng-show="options || checkbox" class="posterBGdiv hvr-grow upprCase">
                     
                 <p class="mc_head_head">{{mov.title}}</p>
-                <p><span class="mc_head">Rated:</span><span class="mc_body">{{mov.rated}}</span></p>
-                <p><span class="mc_head">Released:</span><span class="mc_body">{{mov.released}}</span></p>
-                <p><span class="mc_head">Runtime:</span><span class="mc_body">{{mov.runtime}}</span></p>
-                <p><span class="mc_head">Genre:</span><span class="mc_body">{{mov.genre}}</span></p>
-                <p><span class="mc_head">Language:</span><span class="mc_body">{{mov.language}}</span></p>
-                <p><span class="mc_head">Country:</span><span class="mc_body">{{mov.country}}</span></p>
-                <p><span class="mc_head">MetaScore:</span><span class="mc_body">{{mov.metaScore}}</span></p>
-                <p><span class="mc_head">Rating:</span><span class="mc_body">{{mov.imdbRating}}</span></p>
-                <p><span class="mc_head">Votes:</span><span class="mc_body">{{mov.imdbVotes}}</span></p>
-                <p><span class="mc_head">Type:</span><span class="mc_body">{{mov.type}}</span></p>
-
+                <table width="100%" class="table table-condensed">
+                  <tr><td><span class="mc_head">Rated:</span></td><td><span class="mc_body">{{mov.rated}}</span></td></tr>
+                  <tr><td><span class="mc_head">Released:</span></td><td><span class="mc_body">{{mov.released}}</span></td></tr>
+                  <tr><td><span class="mc_head">Runtime:</span></td><td><span class="mc_body">{{mov.runtime}}</span></td></tr>
+                  <tr><td><span class="mc_head">Genre:</span></td><td><span class="mc_body">{{mov.genre}}</span></td></tr>
+                  <tr><td><span class="mc_head">Language:</span></td><td><span class="mc_body">{{mov.language}}</span></td></tr>
+                  <tr><td><span class="mc_head">Country:</span></td><td><span class="mc_body">{{mov.country}}</span></td></tr>
+                  <tr><td><span class="mc_head">MetaScore:</span></td><td><span class="mc_body">{{mov.metaScore}}</span></td></tr>
+                  <tr><td><span class="mc_head">Rating:</span></td><td><span class="mc_body">{{mov.imdbRating}}</span></td></tr>
+                  <tr><td><span class="mc_head">Votes:</span></td><td><span class="mc_body">{{mov.imdbVotes}}</span></td></tr>
+                  <tr><td><span class="mc_head">Type:</span></td><td><span class="mc_body">{{mov.type}}</span></td></tr>
+                </table>                
               </div>
 
             </div>
-            <div class="panel-footer"><p><span class="mc_head">Rated:</span><span class="mc_body"><a href="http://www.imdb.com/title/{{mov.imdbId}}">Watch now on IMDB</a></span></p></div>
+            <div class="panel-footer upprCase"><p>
+            <span class="mc_head">Rate: {{mov.imdbRating}}/10</span> |
+            <span class="mc_body"><a href="http://www.imdb.com/title/{{mov.imdbId}}">Watch now on IMDB</a></span></p></div>
             </div>
           </div>
         </div>
+    </div>
+    <div class="center">
+    <ul class="pagination pagination-sm">
+      <li><a class="hvr-grow" href="#movieList/0">FIRST</a></li>
+      <li><a class="hvr-grow" href="#movieList/{{movieListVm.prev}}">PREV</a></li>
+      <li ng-repeat="pager in movieListVm.pager" ng-class="{'active': pager.no==movieListVm.curr}"><a class="hvr-grow" href="#movieList/{{pager.no}}">{{pager.no+1}}</a></li>
+      <li><a class="hvr-grow" href="#movieList/{{movieListVm.next}}">NEXT</a></li>
+      <li><a class="hvr-grow" href="#movieList/{{movieListVm.last}}">LAST</a></li>
+    </ul>
     </div>
   </div>
 </div>

@@ -2,7 +2,7 @@ var mainApp = angular.module("mainApp", ['ngRoute']);
       mainApp.config(['$routeProvider', function($routeProvider) {
          $routeProvider.
             
-         when('/movieList', {
+         when('/movieList/:id', {
             templateUrl: 'movieList.html',
             controller: 'MovieListController'
          }).
@@ -13,6 +13,10 @@ var mainApp = angular.module("mainApp", ['ngRoute']);
          when('/login', {
             templateUrl: 'login.html',
             controller: 'LoginController'
+         }).
+         when('/contact', {
+            templateUrl: 'contact.html',
+            controller: 'ContactController'
          }).
          otherwise({
             redirectTo: '/movieList'

@@ -18,32 +18,20 @@
 
             <div class="col-md-8">
 			
-                <div style="background-color: black"><center><img class="img-responsive" src="{{movieDetailVm.movie.poster}}" alt=""></center>
+                <div style="background-color: black"><center><img class="img-responsive hvr-grow" src="{{movieDetailVm.movie.poster}}" alt=""></center>
 				</div><!-- ng-if="sessionVm.status" -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                 <div ng-class="{false: 'disableClick'}[sessionVm.status == true]">
-	                <fieldset class="rating">
-					    <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
-					    <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-					    <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
-					    <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-					    <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
-					    <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-					    <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
-					    <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-					    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
-					    <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
-					</fieldset>
 
-				<a ng-click="movieDetailVm.voteUp(movieDetailVm.movie._id+'-'+sessionVm.currentUser._id)">
-					<i onclick="myFunction(this)" class="fa fa-thumbs-up rating" aria-hidden="true"></i></a>
-					<span class="bold">{{movieDetailVm.movie.imdbVotes}} Votes </span>
+                 <% include ../tmpl/rating.html %>
+	                
 
 				</div>
 				</div>
-				<div class="col-md-8">
-				<p>Plot: {{movieDetailVm.movie.plot}}</p>
-                <p>Awards: {{movieDetailVm.movie.awards}}</p>
+				<div class="col-md-6">
+                <hr>
+				<p><span class="bold">Plot: </span> {{movieDetailVm.movie.plot}}</p>
+                <p><span class="bold">Awards: </span> {{movieDetailVm.movie.awards}}</p>
                 </div>
             </div>
 
@@ -80,7 +68,7 @@
 
             <div ng-repeat="mov in movieDetailVm.latestMovies" class="col-sm-3 col-xs-6">
                 <a href="#movieDetail/{{mov._id}}">
-                    <img class="img-responsive" src="{{mov.poster}}" alt="">
+                    <img class="img-responsive poster hvr-shrink" src="{{mov.poster}}" alt="">
                 </a>
             </div>
 		</div>

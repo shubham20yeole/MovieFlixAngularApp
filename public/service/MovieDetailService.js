@@ -12,6 +12,7 @@
       self.getMovie = getMovie;
       self.getLatestMovies = getLatestMovies;
       self.voteUp = voteUp;
+      self.rateUp = rateUp;
 
       function getMovie(id){
         var $ans = $http.get('/getMovie/'+id);
@@ -36,6 +37,17 @@
           });
           return $ans;
       }
+
+      function rateUp(data){
+        console.log("MovieDetailService.rateUp: "+data);
+        var $ans = $http.get('/rateUp/'+data);
+        $ans.then(function(){
+          
+        });
+          return $ans;
+      }
+
+
     }
     
 })();

@@ -6,7 +6,7 @@ var mongojs = require('mongojs');
 var mongodb = require('mongodb');
 var scraperjs = require('scraperjs');
 // mongodb://<dbuser>:<dbpassword>@ds153609.mlab.com:53609/sonali
-var collections = ["users", "movies", "votes"]
+var collections = ["users", "movies", "votes", "rate"]
 var db = mongojs('mongodb://shubhammovieflix:shubhammovieflix@ds151941.mlab.com:51941/shubhammovieflix', collections)
 var app = express();
 var ObjectId = require('mongodb').ObjectID;
@@ -130,11 +130,49 @@ app.get('/checkLogin', function(req, res) {
   else{ return res.send("nologin"); }
 });
 
-app.get('/getMovies', function(req, res) {
-  db.movies.find({}).skip(0).limit(9).toArray(function (err, movies) {
+app.get('/getMovies/:pageNo', function(req, res) {
+  var pageNo = req.params.pageNo;
+  var skip = pageNo*9;
+  db.movies.find({}).skip(skip).limit(9).toArray(function (err, movies) {
     res.send(movies);
   })
 });
+
+app.get('/getTopRatedMovies', function(req, res) {
+  db.movies.find({type: "movie"}).skip(0).sort({imdbRating: -1}).limit(9).toArray(function (err, movies) {
+    res.send(movies);
+  })
+});
+
+app.get('/getTopRatedSeries', function(req, res) {
+  db.movies.find({type: "series"}).skip(0).sort({imdbRating: -1}).limit(9).toArray(function (err, movies) {
+    res.send(movies);
+  })
+});
+
+
+
+app.get('/getPaginationData/:pageNo', function(req, res) {
+  var pageNo = Number(req.params.pageNo);
+  db.movies.find({}).toArray(function (err, movies) {
+    var totalPages = Math.ceil(movies.length/9);
+    var first = 0;
+    var prev = pageNo-1;
+    if(prev<0) prev = 0;
+    var next = pageNo+1;
+    var last = totalPages-1;
+    var pager = [];
+    for (var i = 0; i<totalPages; i++) {
+      var obj = {no: i};
+      pager.push(obj);
+    }
+    if(pageNo===0) p=0;
+    var pageData = {first: first, prev: prev, curr: pageNo, pager: pager, next:next, last:last }
+    console.log(pageData);
+    res.send(pageData);
+  })
+});
+
 
 app.get('/getLatestMovies', function(req, res) {
   db.movies.find({}).skip(0).limit(4).toArray(function (err, movies) {
@@ -178,11 +216,38 @@ app.get('/voteUp/:id', function(req, res) {
         }
       });  
     });  
-    console.log("/voteUp/:id = "+movId+", "+userId)
-  //  db.movies.findOne({_id: id}, function(err, movie){
-  //   console.log("MOVIE OBJECT: "+movie);
-  //   res.send(movie);
-  // });
+    console.log("/voteUp/:id = "+movId+", "+userId);
+});
+
+app.get('/rateUp/:id', function(req, res) {
+    var id = req.params.id.split("-");
+    var movId = ObjectId(id[0]);
+    var userId = ObjectId(id[1]);
+    var rate = id[2];
+    var newRate = {movId: movId, userId: userId, rate: rate }
+    db.rate.findOne({movId: movId, userId: userId}, function(err, rate) {
+      db.movies.findOne({_id: movId}, function(err, movie) {
+        // update movie in any case
+        db.movies.update({_id: movId},{$set : {"imdbRating": movie.imdbRating+0.1}},{upsert:true,multi:false});
+
+        // if rate found update it 
+        // if no rating found insert rating
+
+        if (!rate) {
+            db.rate.insert(newRate, function(err, rateinsert){
+              db.movies.findOne({_id: movId}, function(err, updatedMovie) {
+                res.send(updatedMovie);
+              });
+            });
+        }else{
+          db.rate.update({_id: movId},{$set : {"imdbRating": movie.imdbRating+0.1}},{upsert:true,multi:false});
+            db.movies.findOne({_id: movId}, function(err, updatedMovie) {
+              res.send(updatedMovie);
+            });
+        }
+      });  
+    });  
+    console.log("/rateUp/:id = "+movId+", "+userId);
 });
 
 app.listen(port, function() {
