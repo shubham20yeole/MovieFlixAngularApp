@@ -135,9 +135,16 @@ app.get('/getMovies', function(req, res) {
     res.send(movies);
   })
 });
+
+app.get('/getLatestMovies', function(req, res) {
+  db.movies.find({}).skip(0).limit(4).toArray(function (err, movies) {
+    res.send(movies);
+  })
+});
+
 app.get('/getMovie/:id', function(req, res) {
-   var id = req.params.id;
-   db.movies.findOne({_id: ObjectId(id)}, function(err, movie){
+   var id = ObjectId(req.params.id);
+   db.movies.findOne({_id: id}, function(err, movie){
     console.log("MOVIE OBJECT: "+movie);
     res.send(movie);
   });

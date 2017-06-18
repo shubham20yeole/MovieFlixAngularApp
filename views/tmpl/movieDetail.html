@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">{{movieDetailVm.movie.title}}
-                    <small class="upprCase">{{movieDetailVm.movie.type}}</small>
+                    <small class="upprCase"><a href="http://www.imdb.com/title/{{movieDetailVm.movie.imdbId}}" target="_blank">Watch now on IMDB</a></small>
                 </h1>
             </div>
         </div>
@@ -16,19 +16,48 @@
         <!-- Portfolio Item Row -->
         <div class="row">
 
-            <div class="col-md-8" style="background-color: black">
-                <center><img class="img-responsive" src="{{movieDetailVm.movie.poster}}" alt=""></center>
+            <div class="col-md-8">
+			
+                <div style="background-color: black"><center><img class="img-responsive" src="{{movieDetailVm.movie.poster}}" alt=""></center>
+				</div>
+                <div class="col-md-4">
+                <fieldset class="rating">
+				    <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+				    <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+				    <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+				    <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+				    <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+				    <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+				    <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+				    <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+				    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+				    <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+				</fieldset>
+				</div>
+				<div class="col-md-8">
+				<p>Plot: {{movieDetailVm.movie.plot}}</p>
+                <p>Awards: {{movieDetailVm.movie.awards}}</p>
+                </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4">				
                 <h3>{{movieDetailVm.movie.title}}</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
-                <h3>Project Details</h3>
+                <p>Directed by: {{movieDetailVm.movie.director}}</p>
+                <p>Written by: {{movieDetailVm.movie.writer}}</p>
+                <p>Actors: {{movieDetailVm.movie.actors}}</p>
+                <h3>Movie Details</h3>
                 <ul>
-                    <li>Lorem Ipsum</li>
-                    <li>Dolor Sit Amet</li>
-                    <li>Consectetur</li>
-                    <li>Adipiscing Elit</li>
+	                <li><p><span class="mc_head">Rated:</span><span class="mc_body">{{movieDetailVm.movie.rated}}</span></p></li>
+	                <li><p><span class="mc_head">Released:</span><span class="mc_body">{{movieDetailVm.movie.released}}</span></p></li>
+	                <li><p><span class="mc_head">Runtime:</span><span class="mc_body">{{movieDetailVm.movie.runtime}}</span></p></li>
+	                <li><p><span class="mc_head">Genre:</span><span class="mc_body">{{movieDetailVm.movie.genre}}</span></p></li>
+	                <li><p><span class="mc_head">Language:</span><span class="mc_body">{{movieDetailVm.movie.language}}</span></p></li>
+	                <li><p><span class="mc_head">Country:</span><span class="mc_body">{{movieDetailVm.movie.country}}</span></p></li>
+	                <li><p><span class="mc_head">MetaScore:</span><span class="mc_body">{{movieDetailVm.movie.metaScore}}</span></p></li>
+	                <li><p><span class="mc_head">Rating:</span><span class="mc_body">{{movieDetailVm.movie.imdbRating}}</span></p></li>
+	                <li><p><span class="mc_head">Votes:</span><span class="mc_body">{{movieDetailVm.movie.imdbVotes}}</span></p></li>
+	                <li><p><span class="mc_head">Type:</span><span class="mc_body">{{movieDetailVm.movie.type}}</span></p></li>
+	                
                 </ul>
             </div>
 
@@ -39,34 +68,15 @@
         <div class="row">
 
             <div class="col-lg-12">
-                <h3 class="page-header">Related Projects</h3>
+                <h3 class="page-header">Latest Movies</h3>
             </div>
 
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
+            <div ng-repeat="mov in movieDetailVm.latestMovies" class="col-sm-3 col-xs-6">
+                <a href="#movieDetail/{{mov._id}}">
+                    <img class="img-responsive" src="{{mov.poster}}" alt="">
                 </a>
             </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-            <div class="col-sm-3 col-xs-6">
-                <a href="#">
-                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                </a>
-            </div>
-
-        </div>
+		</div>
         <!-- /.row -->
 
         <hr>

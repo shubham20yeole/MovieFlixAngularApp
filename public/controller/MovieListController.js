@@ -18,6 +18,7 @@
 
 		init();
 		function init(){
+			window.scrollTo(230, 230);
 			movieListVm.header = 'NetFlix';
 			MovieListService.getMovies()
 			.then(function(movies){

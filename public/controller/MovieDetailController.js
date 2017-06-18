@@ -13,16 +13,22 @@
 		movieDetailVm.message = "MOVIEDETAIL PAGE FROM BACKEND";
 
 		movieDetailVm.addMovie = addMovie;
-		movieDetailVm.deleteMovie = deleteMovie;
-		movieDetailVm.deleteMovie = deleteMovie;
     	init($routeParams.id);
 
 		function init(id){
+			window.scrollTo(230, 230);
 			MovieDetailService.getMovie(id)
 			.then(function(movie){
 				var st = JSON.stringify(movie);
-				console.log("MovieDetailController.init: "+movie.data);
+				console.log("MovieDetailController.init.getMovie: "+movie.data);
 				movieDetailVm.movie = movie.data;
+			})
+
+			MovieDetailService.getLatestMovies()
+			.then(function(latestMovies){
+				var st = JSON.stringify(latestMovies);
+				console.log("MovieDetailController.init.getLatestMovies: "+latestMovies.data);
+				movieDetailVm.latestMovies = latestMovies.data;
 			})
 		}
 
@@ -31,13 +37,6 @@
 			// movieDetailVm.movies.push(movieDetailVm.newMovie);
 			movieDetailVm.movies.unshift(movieDetailVm.newMovie);
 			movieDetailVm.newMovie=null;
-		}
-
-		function deleteMovie(title){
-			_.remove(movieDetailVm.movies, function(movie){
-				console.log(title);
-				return movie.title===title;
-			})
 		}
 	}
 })();
