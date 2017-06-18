@@ -14,6 +14,10 @@ var mainApp = angular.module("mainApp", ['ngRoute']);
             templateUrl: 'login.html',
             controller: 'LoginController'
          }).
+         when('/contact', {
+            templateUrl: 'contact.html',
+            controller: 'ContactController'
+         }).
          otherwise({
             redirectTo: '/movieList'
    });

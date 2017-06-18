@@ -14,8 +14,10 @@
 
 		movieDetailVm.addMovie = addMovie;
 		movieDetailVm.voteUp = voteUp;
-    	init($routeParams.id);
+		movieDetailVm.rateUp = rateUp;
+		movieDetailVm.test = test;
 
+    	init($routeParams.id);
 		function init(id){
 			window.scrollTo(230, 230);
 			MovieDetailService.getMovie(id)
@@ -46,6 +48,15 @@
 			})
 		}
 
+		function rateUp(data){
+			MovieDetailService.rateUp(data)
+			.then(function(rated){
+				movieDetailVm.movie.imdbRating = rated.data.imdbRating;
+				var st = JSON.stringify(rated);
+				console.log("MovieDetailController.rateUp: "+rated.data.imdbRating);
+			})
+		}
+
 		function addMovie(){
 			console.log("MovieDetailController.addMovie: "+movieDetailVm.newMovie);
 			// movieDetailVm.movies.push(movieDetailVm.newMovie);
@@ -53,9 +64,16 @@
 			movieDetailVm.newMovie=null;
 		}
 
+		function test(id){
+			console.log("TESTED RATING BUTTON: "+id)
+		}
+
 		
 	}
 })();
-function myFunction(x) {
+
+
+
+function flipLike(x) {
 	x.classList.toggle("fa-thumbs-down");
 }

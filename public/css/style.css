@@ -46,10 +46,12 @@ h1 { font-size: 1.5em; margin: 10px; }
 
 /****** Style Star Rating Widget *****/
 
+.full{font-size: 2em;}
+
+
 .rating { 
   border: none;
   float: left;
-  font-size: 2em;
 }
 
 .rating > input { display: none; } 
@@ -58,11 +60,9 @@ h1 { font-size: 1.5em; margin: 10px; }
   font-size: 1.25em;
   font-family: FontAwesome;
   display: inline-block;
-  content: "\f005";
 }
 
 .rating > .half:before { 
-  content: "\f005";
   position: absolute;
 }
 

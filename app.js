@@ -6,7 +6,7 @@ var mongojs = require('mongojs');
 var mongodb = require('mongodb');
 var scraperjs = require('scraperjs');
 // mongodb://<dbuser>:<dbpassword>@ds153609.mlab.com:53609/sonali
-var collections = ["users", "movies", "votes"]
+var collections = ["users", "movies", "votes", "rate"]
 var db = mongojs('mongodb://shubhammovieflix:shubhammovieflix@ds151941.mlab.com:51941/shubhammovieflix', collections)
 var app = express();
 var ObjectId = require('mongodb').ObjectID;
@@ -178,11 +178,38 @@ app.get('/voteUp/:id', function(req, res) {
         }
       });  
     });  
-    console.log("/voteUp/:id = "+movId+", "+userId)
-  //  db.movies.findOne({_id: id}, function(err, movie){
-  //   console.log("MOVIE OBJECT: "+movie);
-  //   res.send(movie);
-  // });
+    console.log("/voteUp/:id = "+movId+", "+userId);
+});
+
+app.get('/rateUp/:id', function(req, res) {
+    var id = req.params.id.split("-");
+    var movId = ObjectId(id[0]);
+    var userId = ObjectId(id[1]);
+    var rate = id[2];
+    var newRate = {movId: movId, userId: userId, rate: rate }
+    db.rate.findOne({movId: movId, userId: userId}, function(err, rate) {
+      db.movies.findOne({_id: movId}, function(err, movie) {
+        // update movie in any case
+        db.movies.update({_id: movId},{$set : {"imdbRating": movie.imdbRating+0.1}},{upsert:true,multi:false});
+
+        // if rate found update it 
+        // if no rating found insert rating
+
+        if (!rate) {
+            db.rate.insert(newRate, function(err, rateinsert){
+              db.movies.findOne({_id: movId}, function(err, updatedMovie) {
+                res.send(updatedMovie);
+              });
+            });
+        }else{
+          db.rate.update({_id: movId},{$set : {"imdbRating": movie.imdbRating+0.1}},{upsert:true,multi:false});
+            db.movies.findOne({_id: movId}, function(err, updatedMovie) {
+              res.send(updatedMovie);
+            });
+        }
+      });  
+    });  
+    console.log("/rateUp/:id = "+movId+", "+userId);
 });
 
 app.listen(port, function() {
