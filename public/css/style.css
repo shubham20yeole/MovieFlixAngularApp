@@ -86,3 +86,4 @@ h1 { font-size: 1.5em; margin: 10px; }
 .bold{font-size: 2em; font-weight: bold; padding-left: 10px; bottom: 20px;}
 .poster:hover{cursor: pointer; opacity: 0.5;}
 .center{text-align: center;}
+li{cursor: pointer;}

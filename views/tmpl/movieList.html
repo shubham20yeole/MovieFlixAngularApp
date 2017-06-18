@@ -13,10 +13,10 @@
 
 <!--     <h1>{{movieListVm.message}} {{movieListVm.movies.length}}</h1>
  -->    
-<!--     <input type='checkbox' ng-model="checkbox" ng-click="options=!options">Show
- -->    <div class="center">
- <a ng-click="movieListVm.getTopRatedMovies()">Top Rated Movies</a>
- <a ng-click="movieListVm.getTopRatedSeries()">Top Rated Series</a>
+<!--     
+ -->    
+
+<div class="center">
     <ul class="pagination pagination-sm">
       <li><a class="hvr-grow" ng-click="movieListVm.getPaginatedMovies(movieListVm.first)">FIRST</a></li>
       <li><a class="hvr-grow" ng-click="movieListVm.getPaginatedMovies(movieListVm.prev)">PREV</a></li>
@@ -24,8 +24,13 @@
       <li><a class="hvr-grow" ng-click="movieListVm.getPaginatedMovies(movieListVm.next)">NEXT</a></li>
       <li><a class="hvr-grow" ng-click="movieListVm.getPaginatedMovies(movieListVm.last)">LAST</a></li>
     </ul>
-    </div>
-    <div></div>
+</div>
+<div class="center">
+    <button class="btn btn-default"><input type='checkbox' ng-model="checkbox" ng-click="options=!options"> OPEN ALL</button>
+    <a ng-click="movieListVm.getTopRatedSeries()"><button class="btn btn-default">Top Rated Series</button></a>
+    <a ng-click="movieListVm.getTopRatedMovies()"><button class="btn btn-default">Top Rated Movies</button></a>
+</div>
+<hr>
       <div class="row" style="background-image: 'images/logo2.jpg !important'">
         <div ng-repeat="mov in movieListVm.movies" class="col-sm-4 movieDiv">
           <div class="panel panel-primary">

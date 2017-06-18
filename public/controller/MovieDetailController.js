@@ -19,7 +19,7 @@
 
     	init($routeParams.id);
 		function init(id){
-			window.scrollTo(230, 230);
+			// window.scrollTo(230, 230);
 			MovieDetailService.getMovie(id)
 			.then(function(movie){
 				var st = JSON.stringify(movie);
