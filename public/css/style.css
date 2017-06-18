@@ -26,3 +26,14 @@ footer {
   top:-200px;
   left: 200px;
 }
+.posterBGdiv{
+  padding: 5%;
+}
+.poster{
+  width: 100%;
+}
+.mc_head_head{font-size: 23px; font-weight: bold;}
+.mc_head{font-size: 15px; font-weight: bold;}
+.mc_body{font-size: 15px;}
+.movieDiv{cursor: pointer;}
+.upprCase{text-transform: uppercase;}

@@ -6,10 +6,9 @@ var mainApp = angular.module("mainApp", ['ngRoute']);
             templateUrl: 'movieList.html',
             controller: 'MovieListController'
          }).
-            
-         when('/movieDetail', {
-            templateUrl: 'movieDetail.html',
-            controller: 'MovieDetailController'
+         when("/movieDetail/:id", {
+           templateUrl: "movieDetail.html",
+            controller: "MovieDetailController"
          }).
          when('/login', {
             templateUrl: 'login.html',

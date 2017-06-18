@@ -9,10 +9,14 @@
     
     function MovieDetailService($http, $q){
       var self = this;
-      self.getMovies = getMovies;
-      
-      function getMovies(){
-        return null;
+      self.getMovie = getMovie;
+
+      function getMovie(id){
+        var $ans = $http.get('/getMovie/'+id);
+        $ans.then(function(){
+          
+          });
+          return $ans;
       }
     }
     

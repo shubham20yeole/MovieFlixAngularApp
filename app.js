@@ -9,7 +9,7 @@ var scraperjs = require('scraperjs');
 var collections = ["users", "movies"]
 var db = mongojs('mongodb://shubhammovieflix:shubhammovieflix@ds151941.mlab.com:51941/shubhammovieflix', collections)
 var app = express();
-var ObjectId = mongojs.ObjectId;
+var ObjectId = require('mongodb').ObjectID;
 var session = require('client-sessions');
 var Client = require('ftp');
 
@@ -131,9 +131,16 @@ app.get('/checkLogin', function(req, res) {
 });
 
 app.get('/getMovies', function(req, res) {
-  db.movies.find({}).skip(0).limit(100).toArray(function (err, movies) {
+  db.movies.find({}).skip(0).limit(9).toArray(function (err, movies) {
     res.send(movies);
   })
+});
+app.get('/getMovie/:id', function(req, res) {
+   var id = req.params.id;
+   db.movies.findOne({_id: ObjectId(id)}, function(err, movie){
+    console.log("MOVIE OBJECT: "+movie);
+    res.send(movie);
+  });
 });
 
 app.listen(port, function() {

@@ -5,24 +5,24 @@
 	.module('mainApp')
 	.controller('MovieDetailController', MovieDetailController);
 
-	MovieDetailController.$inject = ['MovieDetailService'];
+	MovieDetailController.$inject = ['MovieDetailService', '$routeParams'];
 
-	function MovieDetailController(MovieDetailService){
+	function MovieDetailController(MovieDetailService, $routeParams){
 		console.log('Inside MovieDetailController');
 		var movieDetailVm = this;
 		movieDetailVm.message = "MOVIEDETAIL PAGE FROM BACKEND";
 
 		movieDetailVm.addMovie = addMovie;
 		movieDetailVm.deleteMovie = deleteMovie;
+		movieDetailVm.deleteMovie = deleteMovie;
+    	init($routeParams.id);
 
-		init();
-		function init(){
-			movieDetailVm.header = 'NetFlix';
-			MovieDetailService.getMovies()
-			.then(function(movies){
-				var st = JSON.stringify(movies);
-				console.log("checkSessionServer is "+movies.data);
-				movieDetailVm.movies = movies.data;
+		function init(id){
+			MovieDetailService.getMovie(id)
+			.then(function(movie){
+				var st = JSON.stringify(movie);
+				console.log("MovieDetailController.init: "+movie.data);
+				movieDetailVm.movie = movie.data;
 			})
 		}
 

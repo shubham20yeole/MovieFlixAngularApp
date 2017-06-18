@@ -5,15 +5,16 @@
 	.module('mainApp')
 	.controller('MovieListController', MovieListController);
 
-	MovieListController.$inject = ['MovieListService'];
+	MovieListController.$inject = ['MovieListService', '$location'];
 
-	function MovieListController(MovieListService){
+	function MovieListController(MovieListService, $location ){
 		console.log('Inside MovieListController');
 		var movieListVm = this;
 		movieListVm.message = "MOVIE LIST PAGE FROM BACKEND";
 
 		movieListVm.addMovie = addMovie;
 		movieListVm.deleteMovie = deleteMovie;
+		movieListVm.detailView = detailView;
 
 		init();
 		function init(){
@@ -21,16 +22,21 @@
 			MovieListService.getMovies()
 			.then(function(movies){
 				var st = JSON.stringify(movies);
-				console.log("checkSessionServer is "+movies.data);
+				console.log("MovieListController.init"+movies.data);
 				movieListVm.movies = movies.data;
 			})
 		}
 
 		function addMovie(){
-			console.log("In add movie method: "+movieListVm.newMovie);
+			console.log("MovieListController.addMovie: "+movieListVm.newMovie);
 			// movieListVm.movies.push(movieListVm.newMovie);
 			movieListVm.movies.unshift(movieListVm.newMovie);
 			movieListVm.newMovie=null;
+		}
+
+		function detailView(id){
+			console.log("MovieListController.detailView: "+id);
+			$location.path('/movieDetail/'+id);
 		}
 
 		function deleteMovie(title){
