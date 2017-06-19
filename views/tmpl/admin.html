@@ -1,47 +1,103 @@
 <section ng-controller="AdminController as adminVm">
+<div class="container upprCase updateColumn" ng-if="sessionVm.currentUser.type==='admin'">
+<div class="row">
 
+<p class="updateMovieHeading">Want to add new movie? <input type="checkbox" ng-model="hideAddMovie"></p>
+<hr>
+<div ng-hide="!hideAddMovie">
 <form ng-submit="adminVm.addMovie()">
-	<input type="text" ng-model="adminVm.newMovie.title" placeholder="Title">
-	<input type="text" ng-model="adminVm.newMovie.year" placeholder="year">
-	<input type="text" ng-model="adminVm.newMovie.rated" placeholder="rated">
-	<input type="text" ng-model="adminVm.newMovie.released" placeholder="released">
-	<input type="text" ng-model="adminVm.newMovie.runtime" placeholder="runtime">
-	<input type="text" ng-model="adminVm.newMovie.genre" placeholder="genre">
-	<input type="text" ng-model="adminVm.newMovie.director" placeholder="director">
-	<input type="text" ng-model="adminVm.newMovie.writer" placeholder="writer">
-	<input type="text" ng-model="adminVm.newMovie.actors" placeholder="actors">
-	<input type="text" ng-model="adminVm.newMovie.plot" placeholder="plot">
-	<input type="text" ng-model="adminVm.newMovie.language" placeholder="language">
-	<input type="text" ng-model="adminVm.newMovie.country" placeholder="country">
-	<input type="text" ng-model="adminVm.newMovie.awards" placeholder="awards">
-	<input type="text" ng-model="adminVm.newMovie.poster" placeholder="poster">
-	<input type="text" ng-model="adminVm.newMovie.metaScore" placeholder="metaScore">
-	<input type="text" ng-model="adminVm.newMovie.imdbRating" placeholder="imdbRating">
-	<input type="text" ng-model="adminVm.newMovie.imdbVotes" placeholder="imdbVotes">
-	<input type="text" ng-model="adminVm.newMovie.imdbId" placeholder="imdbId">
-	<input type="text" ng-model="adminVm.newMovie.type" placeholder="type">
-	<input type="submit" value="SUBMIT">
-</form>
+<div class="col-md-3 ">Title:</div>
+	<div class="col-md-8"><input type="text" ng-model="adminVm.newMovie.title" placeholder="Enter Title"></div>
 
+	<div class="col-md-3">poster:</div>
+	<div class="col-md-8"><input type="text" ng-model="adminVm.newMovie.poster" placeholder="Enter poster"></div>
+
+	<div class="col-md-3">year:</div>
+	<div class="col-md-8"><input type="text" ng-model="adminVm.newMovie.year" placeholder="Enter year"></div>
+
+
+	<div class="col-md-3">rated:</div>
+	<div class="col-md-8"><input type="text" ng-model="adminVm.newMovie.rated" placeholder="Enter rated"></div>
+	
+	<div class="col-md-3">released:</div>
+	<div class="col-md-8"><input type="text" ng-model="adminVm.newMovie.released" placeholder="Enter released date"></div>
+	
+	<div class="col-md-3">runtime:</div>
+	<div class="col-md-8"><input type="text" ng-model="adminVm.newMovie.runtime" placeholder="Enter runtime"></div>
+	
+	<div class="col-md-3">genre:</div>
+	<div class="col-md-8"><input type="text" ng-model="adminVm.newMovie.genre" placeholder="Enter genre"></div>
+	
+	<div class="col-md-3">director:</div>
+	<div class="col-md-8"><input type="text" ng-model="adminVm.newMovie.director" placeholder="Enter director"></div>
+	
+	<div class="col-md-3">actors:</div>
+	<div class="col-md-8"><input type="text" ng-model="adminVm.newMovie.actors" placeholder="Enter actors"></div>
+	
+	<div class="col-md-3">plot:</div>
+	<div class="col-md-8"><input type="text" ng-model="adminVm.newMovie.plot" placeholder="Enter plot"></div>
+	
+	<div class="col-md-3">language:</div>
+	<div class="col-md-8"><input type="text" ng-model="adminVm.newMovie.language" placeholder="Enter language"></div>
+	
+	<div class="col-md-3">country:</div>
+	<div class="col-md-8"><input type="text" ng-model="adminVm.newMovie.country" placeholder="Enter country"></div>
+
+	<div class="col-md-3">metaScore:</div>
+	<div class="col-md-8"><input type="number" ng-model="adminVm.newMovie.metaScore" placeholder="Enter metaScore"></div>
+	
+	<div class="col-md-3">imdbRating:</div>
+	<div class="col-md-8"><input type="text" ng-model="adminVm.newMovie.imdbRating" placeholder="Enter imdbRating"></div>
+	
+	<div class="col-md-3">imdbVotes:</div>
+	<div class="col-md-8"><input type="number" ng-model="adminVm.newMovie.imdbVotes" placeholder="Enter imdbVotes"></div>
+	
+	<div class="col-md-3">imdbId:</div>
+	<div class="col-md-8"><input type="text" ng-model="adminVm.newMovie.imdbId" placeholder="Enter imdbId"></div>
+	
+	<div class="col-md-3">type:</div>
+	<div class="col-md-8"><input type="text" ng-model="adminVm.newMovie.type" placeholder="Enter type"></div>
+
+	<div class="col-md-3"></div>
+	<div class="col-md-8"><hr><button type="submit" class="btn btn-primary" style="width: 100%">SUBMIT</button>
+</form>
+</div>
+</div>
+</div>
+<br>
+
+<p class="updateMovieHeading">Want to delete/update movies? <input type="checkbox" ng-model="hideUpdateRemoveMovie"></p>
+
+<div ng-hide="!hideUpdateRemoveMovie">
 <h1>Total Movies = {{adminVm.movies.length}}</h1>
 
-<table>
+<table class="table table-striped table-hover">
 	<thead>
 		<tr>
+			<th>Poster</th>
 			<th>TITLE</th>
 			<th>YEAR</th>
-			<th>ACTION</th>
+			<th>Remove</th>
+			<th>Update</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr ng-repeat="movies in adminVm.movies">
+			<td><img src="{{movies.poster}}" width="33" height="33"></td>
 			<td>{{movies.title}}</td>
 			<td>{{movies.year}}</td>
 			<td>
-			<span ng-click="adminVm.removeMovie(movies._id)">X</span>
-			<a href="#updateMovie/{{movies._id}}">Update</a>
+			<span class="movieDiv" style="color: red; font-size: 2em;" ng-click="adminVm.removeMovie(movies._id)"><i class="fa fa-times" aria-hidden="true"></i></span></td>
+			<td><a class="movieDiv" href="#updateMovie/{{movies._id}}"><img src="images/update.jpg" width="33" height="33"></a>
 			</td>
 		</tr>
 	</tbody>
 </table>
+</div>
+</div>
+</section>
+<section ng-if="sessionVm.currentUser.type==='user' || sessionVm.status==false">
+	
+	<p style="color: red; text-align: center; font-size: 2em;">You are not allowed to access the admin page</p>
+
 </section>

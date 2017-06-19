@@ -44,6 +44,7 @@
 				}else{
 					$window.location.reload();
 					loginVm.message = "Welcome "+user.data.fullName;
+					$location.path('/movieList/'+0);
 				}
 			})
 		}

@@ -5,6 +5,9 @@ var mainApp = angular.module("mainApp", ['ngRoute']);
          when('/', {
             redirectTo: '/movieList/0'
          }).
+         when('/aboutme', {
+            templateUrl: 'aboutme.html',
+         }).
          when('/movieList/:id', {
             templateUrl: 'movieList.html',
             controller: 'MovieListController'

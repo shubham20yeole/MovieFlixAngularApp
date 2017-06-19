@@ -133,7 +133,7 @@ app.get('/checkLogin', function(req, res) {
 app.get('/getMovies/:pageNo', function(req, res) {
   var pageNo = req.params.pageNo;
   var skip = pageNo*9;
-  db.movies.find({}).skip(skip).limit(9).toArray(function (err, movies) {
+  db.movies.find({}).sort({_id: -1}).skip(skip).limit(9).toArray(function (err, movies) {
     res.send(movies);
   })
 });
@@ -142,7 +142,7 @@ app.get('/removeMovie/:id', function(req, res) {
   var id = ObjectId(req.params.id);
   console.log("/removeMovie/:id = "+id);
   db.movies.remove({_id: id}, function(err, deleted){
-    db.movies.find({}).sort({_id: 1}).toArray(function (err, movies) {
+    db.movies.find({}).sort({_id: -1}).toArray(function (err, movies) {
       res.send(movies);
     })
   })
@@ -188,6 +188,7 @@ app.get('/getPaginationData/:pageNo', function(req, res) {
     var next = pageNo+1;
     var last = totalPages-1;
     var pager = [];
+    if(next>=totalPages) next = totalPages-1;
     for (var i = 0; i<totalPages; i++) {
       var obj = {no: i};
       pager.push(obj);

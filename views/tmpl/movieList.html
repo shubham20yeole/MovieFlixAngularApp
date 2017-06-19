@@ -14,9 +14,12 @@
 <!--     <h1>{{movieListVm.message}} {{movieListVm.movies.length}}</h1>
  -->    
 <!--     
- -->    
-
-<div class="center">
+ -->  
+ <div class="center">  
+    OPTION: <button class="btn btn-info hvr-grow"><input type='checkbox' ng-model="checkbox" ng-click="options=!options"> OPEN ALL</button>
+    <a ng-click="movieListVm.getTopRatedSeries()"><button class="btn btn-default hvr-grow">Top Rated Series</button></a>
+    <a ng-click="movieListVm.getTopRatedMovies()"><button class="btn btn-default hvr-grow">Top Rated Movies</button></a>
+<br>
     <ul class="pagination pagination-sm">
       <li><a class="hvr-grow" ng-click="movieListVm.getPaginatedMovies(movieListVm.first)">FIRST</a></li>
       <li><a class="hvr-grow" ng-click="movieListVm.getPaginatedMovies(movieListVm.prev)">PREV</a></li>
@@ -24,20 +27,17 @@
       <li><a class="hvr-grow" ng-click="movieListVm.getPaginatedMovies(movieListVm.next)">NEXT</a></li>
       <li><a class="hvr-grow" ng-click="movieListVm.getPaginatedMovies(movieListVm.last)">LAST</a></li>
     </ul>
+<br>
+
+    SORT BY: 
+    <a ng-click="movieListVm.setOrder('language')"><button class="btn btn-default hvr-grow">Language</button></a>
+    <a ng-click="movieListVm.setOrder('country')"><button class="btn btn-default hvr-grow">Country</button></a>
+    <a ng-click="movieListVm.setOrder('imdbRating')"><button class="btn btn-default hvr-grow">IMDBRating</button></a>
+    <a ng-click="movieListVm.setOrder('genre')"><button class="btn btn-default hvr-grow">Genre</button></a>
+    <a ng-click="movieListVm.setOrder('released')"><button class="btn btn-default hvr-grow">Released</button></a>
+    
+    <hr>
 </div>
-<div class="center">
-    <button class="btn btn-default"><input type='checkbox' ng-model="checkbox" ng-click="options=!options"> OPEN ALL</button>
-    <a ng-click="movieListVm.getTopRatedSeries()"><button class="btn btn-default">Top Rated Series</button></a>
-    <a ng-click="movieListVm.getTopRatedMovies()"><button class="btn btn-default">Top Rated Movies</button></a>
-</div>
-<hr>
-<ul class="nav nav-pills">
-    <li ng-class="{'active': order=='language'}"><a ng-click="movieListVm.setOrder('language')">language</a> {{movieListVm.order}}</li>
-    <li  ng-class="{'active': order=='country'}"><a ng-click="movieListVm.setOrder('country')">country</a> {{movieListVm.order}}</li>
-    <li  ng-class="{'active': order=='imdbRating'}"><a ng-click="movieListVm.setOrder('imdbRating')">imdbRating</a> {{movieListVm.order}}</li>
-    <li  ng-class="{'active': order=='genre'}"><a ng-click="movieListVm.setOrder('genre')">genre</a> {{movieListVm.order}}</li>
-    <li  ng-class="{'active': order=='released'}"><a ng-click="movieListVm.setOrder('released')">released</a> {{movieListVm.order}}</li>
-</ul>
       <div class="row" style="background-image: 'images/logo2.jpg !important'"> 
         <div ng-repeat="mov in movieListVm.movies | orderBy: movieListVm.order" class="col-sm-4 movieDiv">
           <div class="panel panel-primary">

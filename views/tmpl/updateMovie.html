@@ -1,4 +1,6 @@
 <section ng-controller="MovieCastController as movieCastVm">
+<div ng-if="sessionVm.currentUser.type==='admin'">
+
 	<div class="container">
 	<p class="updateMovieHeading">Update {{movieCastVm.movie.title}}</p>
 	<hr>
@@ -62,9 +64,18 @@
 					<div class="col-md-3">type:</div>
 					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.type"></div>
 
-					<button type="submit">SUBMIT</button>
+					<div class="col-md-3"></div>
+					<div class="col-md-8"><hr><button type="submit" class="btn btn-primary" style="width: 100%">SUBMIT</button>
+					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+	</div>
+</section>
+
+<section ng-if="sessionVm.currentUser.type==='user' || sessionVm.status==false">
+	
+	<p style="color: red; text-align: center; font-size: 2em;">You are not allowed to access the admin page</p>
+
 </section>
