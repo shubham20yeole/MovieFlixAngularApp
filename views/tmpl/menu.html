@@ -18,6 +18,8 @@
             <ul class="nav navbar-nav">
               <li class="active"><a href="#">Home</a></li>
               <li><a href="#movieList/0">MovieList</a></li>
+              <li><a href="#contact">Contact Me</a></li>
+              <li ng-if="sessionVm.currentUser.type==='admin'"><a href="#admin">Admin</a></li>
              <!--  <li><a href="#topRated/0">Top Rated Movies</a></li>
               <li><a href="#">Top Rated TV Series</a></li>
               <li><a href="#movieList">MovieList</a></li>

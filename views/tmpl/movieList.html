@@ -31,8 +31,15 @@
     <a ng-click="movieListVm.getTopRatedMovies()"><button class="btn btn-default">Top Rated Movies</button></a>
 </div>
 <hr>
-      <div class="row" style="background-image: 'images/logo2.jpg !important'">
-        <div ng-repeat="mov in movieListVm.movies" class="col-sm-4 movieDiv">
+<ul class="nav nav-pills">
+    <li ng-class="{'active': order=='language'}"><a ng-click="movieListVm.setOrder('language')">language</a> {{movieListVm.order}}</li>
+    <li  ng-class="{'active': order=='country'}"><a ng-click="movieListVm.setOrder('country')">country</a> {{movieListVm.order}}</li>
+    <li  ng-class="{'active': order=='imdbRating'}"><a ng-click="movieListVm.setOrder('imdbRating')">imdbRating</a> {{movieListVm.order}}</li>
+    <li  ng-class="{'active': order=='genre'}"><a ng-click="movieListVm.setOrder('genre')">genre</a> {{movieListVm.order}}</li>
+    <li  ng-class="{'active': order=='released'}"><a ng-click="movieListVm.setOrder('released')">released</a> {{movieListVm.order}}</li>
+</ul>
+      <div class="row" style="background-image: 'images/logo2.jpg !important'"> 
+        <div ng-repeat="mov in movieListVm.movies | orderBy: movieListVm.order" class="col-sm-4 movieDiv">
           <div class="panel panel-primary">
             <div class="panel-heading">{{mov.title}}</div>
             <div class="posterBG">

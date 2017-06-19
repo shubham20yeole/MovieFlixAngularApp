@@ -138,6 +138,22 @@ app.get('/getMovies/:pageNo', function(req, res) {
   })
 });
 
+app.get('/removeMovie/:id', function(req, res) {
+  var id = ObjectId(req.params.id);
+  console.log("/removeMovie/:id = "+id);
+  db.movies.remove({_id: id}, function(err, deleted){
+    db.movies.find({}).sort({_id: 1}).toArray(function (err, movies) {
+      res.send(movies);
+    })
+  })
+});
+
+app.get('/getAllMovies', function(req, res) {
+  db.movies.find({}).sort({_id: -1}).toArray(function (err, movies) {
+    res.send(movies);
+  })
+});
+
 app.get('/getTopRatedMovies', function(req, res) {
   db.movies.find({type: "movie"}).skip(0).sort({imdbRating: -1}).limit(9).toArray(function (err, movies) {
     res.send(movies);
@@ -148,6 +164,16 @@ app.get('/getTopRatedSeries', function(req, res) {
   db.movies.find({type: "series"}).skip(0).sort({imdbRating: -1}).limit(9).toArray(function (err, movies) {
     res.send(movies);
   })
+});
+
+app.post('/addMovie', function(req, res) {
+  var newMovie = req.body;
+  console.log(newMovie)
+  db.movies.insert(newMovie, function(err, result){
+    db.movies.find({}).sort({_id: -1}).toArray(function (err, movies) {
+      res.send(movies);
+    })
+  });
 });
 
 
@@ -180,10 +206,22 @@ app.get('/getLatestMovies', function(req, res) {
   })
 });
 
+app.put('/updateMovie', function(req, res) {
+  var newObject = req.body;
+  var jsonToString = JSON.stringify(newObject);
+  console.log("/updateMovie: "+jsonToString);
+  var id = ObjectId(newObject._id);
+  db.movies.remove({_id: id}, function(err, deleted){
+      delete newObject._id;
+      db.movies.insert(newObject);
+        res.send(newObject);
+  });
+});
+
 app.get('/getMovie/:id', function(req, res) {
    var id = ObjectId(req.params.id);
    db.movies.findOne({_id: id}, function(err, movie){
-    console.log("MOVIE OBJECT: "+movie);
+    console.log("/getMovie/:id = "+movie);
     res.send(movie);
   });
 });

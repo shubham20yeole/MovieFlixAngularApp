@@ -1,0 +1,47 @@
+<section ng-controller="AdminController as adminVm">
+
+<form ng-submit="adminVm.addMovie()">
+	<input type="text" ng-model="adminVm.newMovie.title" placeholder="Title">
+	<input type="text" ng-model="adminVm.newMovie.year" placeholder="year">
+	<input type="text" ng-model="adminVm.newMovie.rated" placeholder="rated">
+	<input type="text" ng-model="adminVm.newMovie.released" placeholder="released">
+	<input type="text" ng-model="adminVm.newMovie.runtime" placeholder="runtime">
+	<input type="text" ng-model="adminVm.newMovie.genre" placeholder="genre">
+	<input type="text" ng-model="adminVm.newMovie.director" placeholder="director">
+	<input type="text" ng-model="adminVm.newMovie.writer" placeholder="writer">
+	<input type="text" ng-model="adminVm.newMovie.actors" placeholder="actors">
+	<input type="text" ng-model="adminVm.newMovie.plot" placeholder="plot">
+	<input type="text" ng-model="adminVm.newMovie.language" placeholder="language">
+	<input type="text" ng-model="adminVm.newMovie.country" placeholder="country">
+	<input type="text" ng-model="adminVm.newMovie.awards" placeholder="awards">
+	<input type="text" ng-model="adminVm.newMovie.poster" placeholder="poster">
+	<input type="text" ng-model="adminVm.newMovie.metaScore" placeholder="metaScore">
+	<input type="text" ng-model="adminVm.newMovie.imdbRating" placeholder="imdbRating">
+	<input type="text" ng-model="adminVm.newMovie.imdbVotes" placeholder="imdbVotes">
+	<input type="text" ng-model="adminVm.newMovie.imdbId" placeholder="imdbId">
+	<input type="text" ng-model="adminVm.newMovie.type" placeholder="type">
+	<input type="submit" value="SUBMIT">
+</form>
+
+<h1>Total Movies = {{adminVm.movies.length}}</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>TITLE</th>
+			<th>YEAR</th>
+			<th>ACTION</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="movies in adminVm.movies">
+			<td>{{movies.title}}</td>
+			<td>{{movies.year}}</td>
+			<td>
+			<span ng-click="adminVm.removeMovie(movies._id)">X</span>
+			<a href="#updateMovie/{{movies._id}}">Update</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</section>

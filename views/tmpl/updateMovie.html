@@ -1,0 +1,70 @@
+<section ng-controller="MovieCastController as movieCastVm">
+	<div class="container">
+	<p class="updateMovieHeading">Update {{movieCastVm.movie.title}}</p>
+	<hr>
+        <div class="row">
+            <div class="col-lg-5">
+				<img src="{{movieCastVm.movie.poster}}" class="posterUpdate">
+			</div>
+			<div class="col-lg-6 upprCase updateColumn">
+
+				<form ng-submit="movieCastVm.updateMovie()">
+
+					<div class="col-md-3">Title:</div>
+					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.title" ></div>
+
+					<div class="col-md-3">poster:</div>
+					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.poster"></div>
+
+					<div class="col-md-3">year:</div>
+					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.year"></div>
+
+
+					<div class="col-md-3">rated:</div>
+					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.rated"></div>
+					
+					<div class="col-md-3">released:</div>
+					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.released"></div>
+					
+					<div class="col-md-3">runtime:</div>
+					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.runtime"></div>
+					
+					<div class="col-md-3">genre:</div>
+					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.genre"></div>
+					
+					<div class="col-md-3">director:</div>
+					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.director"></div>
+					
+					<div class="col-md-3">actors:</div>
+					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.actors"></div>
+					
+					<div class="col-md-3">plot:</div>
+					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.plot"></div>
+					
+					<div class="col-md-3">language:</div>
+					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.language"></div>
+					
+					<div class="col-md-3">country:</div>
+					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.country"></div>
+
+					<div class="col-md-3">metaScore:</div>
+					<div class="col-md-8"><input type="number" ng-model="movieCastVm.newMovie.metaScore"></div>
+					
+					<div class="col-md-3">imdbRating:</div>
+					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.imdbRating"></div>
+					
+					<div class="col-md-3">imdbVotes:</div>
+					<div class="col-md-8"><input type="number" ng-model="movieCastVm.newMovie.imdbVotes"></div>
+					
+					<div class="col-md-3">imdbId:</div>
+					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.imdbId"></div>
+					
+					<div class="col-md-3">type:</div>
+					<div class="col-md-8"><input type="text" ng-model="movieCastVm.newMovie.type"></div>
+
+					<button type="submit">SUBMIT</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>

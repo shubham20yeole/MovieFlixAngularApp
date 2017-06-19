@@ -18,11 +18,10 @@
 		movieListVm.getTopRatedMovies = getTopRatedMovies;
 		movieListVm.getPaginatedMovies = getPaginatedMovies;
 		movieListVm.getTopRatedSeries = getTopRatedSeries;
+		movieListVm.setOrder = setOrder;
 
 		init($routeParams.id);
 		function init(pageno){
-			
-			window.scrollTo(230, 230);
 			movieListVm.header = 'NetFlix';
 			MovieListService.getMovies(pageno)
 			.then(function(movies){
@@ -100,6 +99,11 @@
 				console.log(title);
 				return movie.title===title;
 			})
+		}
+
+		function setOrder(order){
+			console.log(order)
+			movieListVm.order = order;
 		}
 	}
 })();

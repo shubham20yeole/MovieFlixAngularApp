@@ -13,6 +13,7 @@
       self.getLatestMovies = getLatestMovies;
       self.voteUp = voteUp;
       self.rateUp = rateUp;
+      self.updateMovie = updateMovie;
 
       function getMovie(id){
         var $ans = $http.get('/getMovie/'+id);
@@ -45,6 +46,12 @@
           
         });
           return $ans;
+      }
+
+      function updateMovie(newMovie){
+        var $ans = $http.put('/updateMovie', newMovie);
+        $ans.then(function(){});
+        return $ans;
       }
 
 
