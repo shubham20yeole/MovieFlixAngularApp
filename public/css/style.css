@@ -107,6 +107,7 @@ li{cursor: pointer;}
 .followUpLogos{
   font-size: 2em; font-weight: bold;
 }
+table{ cursor: pointer; }
 .followUpLogos a{padding: 5px 40px 5px 40px;}
 .followUpLogos a:hover{background-color: #dce1e1;}
 td:first-child { color: #00405d; font-weight: bold; };
