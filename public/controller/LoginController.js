@@ -10,7 +10,7 @@
 	function LoginController(LoginService, $location, $window){
 		console.log('Inside LoginController');
 		var loginVm = this;
-		loginVm.message = "LOGIN PAGE FROM BACKEND";
+		loginVm.message = "Register/Login";
 
 		loginVm.addUser = addUser;
 		loginVm.login = login;

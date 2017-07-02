@@ -99,3 +99,14 @@ li{cursor: pointer;}
    background-image:url(../images/load.gif);
    background-repeat: no-repeat; background-size: 100%;
 }
+
+.contactMeWholeSection{
+  font-family: 'Open Sans', sans-serif;
+  width: 800px;
+}
+.followUpLogos{
+  font-size: 2em; font-weight: bold;
+}
+.followUpLogos a{padding: 5px 40px 5px 40px;}
+.followUpLogos a:hover{background-color: #dce1e1;}
+td:first-child { color: #00405d; font-weight: bold; };

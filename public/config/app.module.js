@@ -20,6 +20,10 @@ var mainApp = angular.module("mainApp", ['ngRoute']);
             templateUrl: 'login.html',
             controller: 'LoginController'
          }).
+         when('/register', {
+            templateUrl: 'register.html',
+            controller: 'LoginController'
+         }).
          when('/admin', {
             templateUrl: 'admin.html',
             controller: 'AdminController'
